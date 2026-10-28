@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-10-28T12:01:58+05:30",
+  "track": "Data Science",
+  "items": {
+    "db-sql-select-all": {
+      "title": "SELECT All Rows",
+      "difficulty": "",
+      "category": "SQL & Databases",
+      "path": "db-sql-select-all",
+      "url": "https://github.com/om-kale-26/trentorch-solutions/tree/main/db-sql-select-all",
+      "language": "python",
+      "first_solved_at": "2026-10-28T12:01:56+05:30",
+      "last_pushed_at": "2026-10-28T12:01:58+05:30"
+    }
+  }
+}

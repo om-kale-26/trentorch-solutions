@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Data Science portfolio</title>
+<style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#656d76;--emp:#d0d7de;--ok:#2da44e;--new:#bf8700}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#8b949e;--emp:#30363d}}
+body{margin:0;padding:2rem 1rem;background:var(--bg);color:var(--fg);
+font:14px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+main{max-width:900px;margin:auto}
+h1{font-size:1.4rem;margin:0 0 .25rem}.mut{color:var(--mut)}
+.row{display:flex;justify-content:space-between;margin-top:1.2rem}
+.grid{display:flex;flex-wrap:wrap;gap:4px;margin-top:.4rem}
+.sq{width:10px;height:10px;border-radius:2px;background:var(--emp)}
+.sq.ok{background:var(--ok)}.sq.new{background:var(--new)}
+.ctl{display:flex;gap:1rem;align-items:center;margin:1.5rem 0}
+.ctl input{flex:1}button{font:inherit;padding:.3rem .9rem;cursor:pointer}
+</style></head><body><main>
+<h1>Data Science portfolio</h1>
+<div class="mut" id="sub"></div>
+<div class="ctl"><button id="play">Play</button>
+<input id="seek" type="range" min="0" value="0"><span id="when"></span></div>
+<div id="cats"></div>
+<p class="mut" id="latest"></p>
+</main>
+<script>
+const DATA = {"track": "Data Science", "categories": [{"name": "Exploratory Data Analysis (EDA)", "total": 17, "solved": 0}, {"name": "Data Visualization", "total": 22, "solved": 0}, {"name": "Data Preparation", "total": 13, "solved": 0}, {"name": "Data Storage & Retrieval", "total": 12, "solved": 0}, {"name": "SQL & Databases", "total": 51, "solved": 1}, {"name": "Data Structures & Algorithms", "total": 20, "solved": 0}], "items": [{"title": "SELECT All Rows", "category": "SQL & Databases", "date": "2026-10-28T12:01:56+05:30"}]};
+const items = DATA.items.slice().sort((a, b) => a.date.localeCompare(b.date));
+const seek = document.getElementById("seek"), when = document.getElementById("when");
+seek.max = items.length; seek.value = items.length;
+document.getElementById("sub").textContent =
+  items.length + " solved · track: " + DATA.track;
+function render() {
+  const n = +seek.value, shown = items.slice(0, n);
+  const root = document.getElementById("cats"); root.textContent = "";
+  for (const c of DATA.categories) {
+    const mine = shown.filter(i => i.category === c.name);
+    const row = document.createElement("div"); row.className = "row";
+    row.innerHTML = "<span></span><span class='mut'></span>";
+    row.children[0].textContent = c.name;
+    row.children[1].textContent = mine.length + "/" + c.total;
+    const grid = document.createElement("div"); grid.className = "grid";
+    const last = shown[n - 1];
+    for (let k = 0; k < c.total; k++) {
+      const sq = document.createElement("div"); sq.className = "sq";
+      if (k < mine.length) {
+        sq.classList.add("ok");
+        if (last && mine[k] === last) sq.classList.add("new");
+      }
+      grid.appendChild(sq);
+    }
+    root.append(row, grid);
+  }
+  const last = shown[n - 1];
+  when.textContent = last ? last.date.slice(0, 10) : "start";
+  document.getElementById("latest").textContent =
+    last ? "Latest: " + last.title : "";
+}
+seek.oninput = render;
+let timer = null; const btn = document.getElementById("play");
+btn.onclick = () => {
+  if (timer) { clearInterval(timer); timer = null; btn.textContent = "Play"; return; }
+  if (+seek.value >= items.length) seek.value = 0;
+  btn.textContent = "Pause";
+  timer = setInterval(() => {
+    seek.value = +seek.value + 1; render();
+    if (+seek.value >= items.length) { clearInterval(timer); timer = null; btn.textContent = "Play"; }
+  }, 450);
+};
+render();
+</script></body></html>
