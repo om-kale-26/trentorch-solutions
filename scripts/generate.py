@@ -71,6 +71,28 @@ def read_md(folder):
     return text
 
 
+def find_difficulty(folder, md):
+    """Look for easy/medium/hard in every small text file in the folder."""
+    texts = [md]
+    for f in sorted(folder.iterdir()):
+        if f.is_file() and f.suffix.lower() in {".json", ".txt", ".yml", ".yaml", ".sql", ".py"}:
+            try:
+                texts.append(f.read_text("utf-8", errors="ignore")[:5000])
+            except Exception:
+                pass
+    # 1) explicit "difficulty: easy" / "difficulty": "easy" / table cell
+    for t in texts:
+        m = re.search(r"difficulty\W{0,8}(easy|medium|hard)", t, re.I)
+        if m:
+            return m.group(1).lower()
+    # 2) a lone badge/label such as "Easy" or "**Medium**" near the top of a .md
+    for line in md.splitlines()[:15]:
+        m = re.fullmatch(r"\W*(easy|medium|hard)\W*", line.strip(), re.I)
+        if m:
+            return m.group(1).lower()
+    return ""
+
+
 def scan():
     items = {}
     for d in sorted(ROOT.iterdir()):
@@ -102,10 +124,7 @@ def scan():
             rest = slug[len(prefix) + 1:] if prefix else slug
             title = rest.replace("-", " ").strip().title() or slug
 
-        diff = meta.get("difficulty")
-        if not diff:
-            m = re.search(r"difficulty\W{0,6}(easy|medium|hard)", md, re.I)
-            diff = m.group(1).lower() if m else ""
+        diff = meta.get("difficulty") or find_difficulty(d, md)
 
         exts = {f.suffix.lower() for f in d.iterdir() if f.is_file()}
         language = "sql" if ".sql" in exts else "python" if ".py" in exts else ""
@@ -158,7 +177,7 @@ def coverage_svg(cats):
         y += math.ceil(c["total"] / PER_ROW) * STEP + 24
     H = y - 4
     style = ("<style>.l{font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;"
-             "fill:#8b949e}.s{fill:#2da44e}.e{fill:#8b949e;opacity:.25}</style>")
+             "fill:#6e7781}.s{fill:#1a7f37}.e{fill:#57606a;opacity:.75}</style>")
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" '
             f'viewBox="0 0 {W} {H}" role="img" aria-label="Data Science coverage">'
             f'{style}{"".join(parts)}</svg>\n')
