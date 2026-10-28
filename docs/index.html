@@ -24,7 +24,7 @@ h1{font-size:1.4rem;margin:0 0 .25rem}.mut{color:var(--mut)}
 <p class="mut" id="latest"></p>
 </main>
 <script>
-const DATA = {"track": "Data Science", "categories": [{"name": "Exploratory Data Analysis (EDA)", "total": 17, "solved": 0}, {"name": "Data Visualization", "total": 22, "solved": 0}, {"name": "Data Preparation", "total": 13, "solved": 0}, {"name": "Data Storage & Retrieval", "total": 12, "solved": 0}, {"name": "SQL & Databases", "total": 51, "solved": 1}, {"name": "Data Structures & Algorithms", "total": 20, "solved": 0}], "items": [{"title": "SELECT All Rows", "category": "SQL & Databases", "date": "2026-10-28T12:01:56+05:30"}]};
+const DATA = {"track": "Data Science", "categories": [{"name": "Exploratory Data Analysis (EDA)", "total": 17, "solved": 0}, {"name": "Data Visualization", "total": 22, "solved": 0}, {"name": "Data Preparation", "total": 13, "solved": 0}, {"name": "Data Storage & Retrieval", "total": 12, "solved": 0}, {"name": "SQL & Databases", "total": 51, "solved": 1}, {"name": "Data Structures & Algorithms", "total": 20, "solved": 0}, {"name": "Other", "total": 1, "solved": 1}], "items": [{"title": "SELECT All Rows", "category": "SQL & Databases", "date": "2026-10-28T12:01:56+05:30"}, {"title": "Math Vectors Matrices Tensors", "category": "Other", "date": "2026-10-28T19:20:56+05:30"}]};
 const items = DATA.items.slice().sort((a, b) => a.date.localeCompare(b.date));
 const seek = document.getElementById("seek"), when = document.getElementById("when");
 seek.max = items.length; seek.value = items.length;

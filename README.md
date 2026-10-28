@@ -2,7 +2,7 @@
 
 My data science practice from [TrenTorch](https://trentorch.com/questions/part-data-science). Every solution here was written by hand.
 
-**1** solved of 135 · 1 of 6 topics started
+**2** solved of 135 · 2 of 6 topics started
 
 [![Coverage](coverage.svg)](coverage.svg)
 
@@ -13,6 +13,12 @@ My data science practice from [TrenTorch](https://trentorch.com/questions/part-d
 | Problem | Difficulty | Solved | |
 |---|---|---|---|
 | SELECT All Rows | - | 2026-10-28 | [solution](https://github.com/om-kale-26/trentorch-solutions/tree/main/db-sql-select-all) |
+
+## Other
+
+| Problem | Difficulty | Solved | |
+|---|---|---|---|
+| Math Vectors Matrices Tensors | - | 2026-10-28 | [solution](https://github.com/om-kale-26/trentorch-solutions/tree/main/math-vectors-matrices-tensors) |
 
 ---
 

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T12:01:58+05:30",
+  "generated_at": "2026-10-28T19:20:56+05:30",
   "track": "Data Science",
   "items": {
     "db-sql-select-all": {
@@ -11,6 +11,16 @@
       "language": "python",
       "first_solved_at": "2026-10-28T12:01:56+05:30",
       "last_pushed_at": "2026-10-28T12:01:58+05:30"
+    },
+    "math-vectors-matrices-tensors": {
+      "title": "Math Vectors Matrices Tensors",
+      "difficulty": "",
+      "category": "Other",
+      "path": "math-vectors-matrices-tensors",
+      "url": "https://github.com/om-kale-26/trentorch-solutions/tree/main/math-vectors-matrices-tensors",
+      "language": "python",
+      "first_solved_at": "2026-10-28T19:20:56+05:30",
+      "last_pushed_at": "2026-10-28T19:20:56+05:30"
     }
   }
 }
